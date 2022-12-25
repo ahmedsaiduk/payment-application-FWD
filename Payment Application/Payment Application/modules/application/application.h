@@ -9,5 +9,8 @@
 #define application_h
 
 #include <stdio.h>
+#include "../server/server.h"
+
+void appStart(void);
 
 #endif /* application_h */
