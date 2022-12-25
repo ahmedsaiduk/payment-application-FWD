@@ -6,7 +6,6 @@
 //
 
 #include "terminal.h"
-#include<time.h>
 EN_terminalError_t getTransactionDate(ST_terminalData_t *termData){
     uint8_t input[11];
     printf("Please Enter the transaction date[e.g 25/06/2022]: ");
@@ -46,6 +45,42 @@ EN_terminalError_t isCardExpired(ST_cardData_t *cardData, ST_terminalData_t *ter
             return TERMINAL_OK;
         }
     }else{
+        return TERMINAL_OK;
+    }
+}
+
+EN_terminalError_t getTransactionAmount(ST_terminalData_t *termData){
+
+    float input;
+    printf("Please enter the transaction amount [>0]: ");
+    scanf("%f", &input);
+    
+    if(input <= 0){
+        return INVALID_AMOUNT;
+    } else{
+        termData->transAmount = input;
+        return TERMINAL_OK;
+    }
+}
+
+EN_terminalError_t isBelowMaxAmount(ST_terminalData_t *termData){
+    if(termData->transAmount > termData->maxTransAmount){
+        return EXCEED_MAX_AMOUNT;
+    }else{
+        return TERMINAL_OK;
+    }
+}
+
+EN_terminalError_t setMaxAmount(ST_terminalData_t *termData){
+    
+    float input;
+    printf("Please enter the Max amount: ");
+    scanf("%f", &input);
+    
+    if(input <= 0){
+        return INVALID_MAX_AMOUNT;
+    } else{
+        termData->maxTransAmount = input;
         return TERMINAL_OK;
     }
 }

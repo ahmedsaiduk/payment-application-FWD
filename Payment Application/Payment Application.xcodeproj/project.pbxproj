@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E245DECF29572F240008DD44 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = E245DECE29572F240008DD44 /* test.c */; };
 		E24790CE2952F19900C19060 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E24790CD2952F19900C19060 /* main.c */; };
 		E24790D82952F3DD00C19060 /* card.c in Sources */ = {isa = PBXBuildFile; fileRef = E24790D72952F3DD00C19060 /* card.c */; };
 		E24790DC2952F40100C19060 /* terminal.c in Sources */ = {isa = PBXBuildFile; fileRef = E24790DB2952F40100C19060 /* terminal.c */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E245DECD29572F240008DD44 /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		E245DECE29572F240008DD44 /* test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
 		E24790CA2952F19900C19060 /* Payment Application */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Payment Application"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24790CD2952F19900C19060 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		E24790D62952F3DD00C19060 /* card.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = card.h; sourceTree = "<group>"; };
@@ -50,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E245DECA29572EAE0008DD44 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				E245DECD29572F240008DD44 /* test.h */,
+				E245DECE29572F240008DD44 /* test.c */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		E24790C12952F19900C19060 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +90,7 @@
 		E24790D42952F35100C19060 /* modules */ = {
 			isa = PBXGroup;
 			children = (
+				E245DECA29572EAE0008DD44 /* test */,
 				E24790E12952FE3600C19060 /* application */,
 				E24790DD2952F41400C19060 /* server */,
 				E24790D92952F3E800C19060 /* terminal */,
@@ -182,6 +195,7 @@
 				E24790E02952F42800C19060 /* server.c in Sources */,
 				E24790CE2952F19900C19060 /* main.c in Sources */,
 				E24790DC2952F40100C19060 /* terminal.c in Sources */,
+				E245DECF29572F240008DD44 /* test.c in Sources */,
 				E24790D82952F3DD00C19060 /* card.c in Sources */,
 				E24790E42952FE5B00C19060 /* application.c in Sources */,
 			);
