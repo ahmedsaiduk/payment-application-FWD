@@ -7,6 +7,8 @@
 #include <string.h>
 #include "server.h"
 
+const char *transStates[] = {"APPROVED", "DECLINED_INSUFFECIENT_FUND", "DECLINED_STOLEN_CARD", "FRAUD_CARD", "INTERNAL_SERVER_ERROR"};
+
 uint32_t seq_num = 000000;
 ST_accountsDB_t accountRefrence;
 ST_accountsDB_t accountsDB[255] = {
@@ -21,6 +23,9 @@ ST_accountsDB_t accountsDB[255] = {
     {9000, BLOCKED, "4024007107591116"},
     {10000,BLOCKED, "4532921095940439"}
 };
+
+//Ahmed Mohamed Abdelwahab
+
 ST_transaction_t trans_arr[255] = {0};
 
 
@@ -57,8 +62,7 @@ EN_serverError_t isValidAccount(ST_cardData_t *cardData, ST_accountsDB_t *accoun
 
 
 EN_serverError_t isBlockedAccount(ST_accountsDB_t *accountRefrence){
-        printf("account %u\n", accountRefrence->state);
-        if(accountRefrence->state == BLOCKED){
+    if(accountRefrence->state == BLOCKED){
             printf("BLOCKED_ACCOUNT\n");
             return BLOCKED_ACCOUNT;
         } else{
@@ -88,7 +92,7 @@ void listSavedTransactions(void){
         printf("Transaction Sequence Number: %u\n", trans_arr[i].transactionSequenceNumber);
         printf("Transaction Date: %s\n", trans_arr[i].terminalData.transactionDate);
         printf("Transaction Amount: %f\n", trans_arr[i].terminalData.transAmount);
-        printf("Transaction State: %u\n", trans_arr[i].transState);
+        printf("Transaction State: %s\n", transStates[trans_arr[i].transState]);
         printf("Terminal Max Amount: %f\n", trans_arr[i].terminalData.maxTransAmount);
         printf("Cardholder Name: %s\n", trans_arr[i].cardHolderData.cardHolderName);
         printf("PAN: %s\n", trans_arr[i].cardHolderData.primaryAccountNumber);

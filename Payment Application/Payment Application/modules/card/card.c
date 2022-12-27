@@ -8,16 +8,11 @@
 #include "card.h"
 #include <stdlib.h>
 #include <string.h>
-#define MAX_INPUT_GUARD 100
 EN_cardError_t getCardHolderName(ST_cardData_t *cardData){
-    char *input = malloc(MAX_INPUT_GUARD);
-    if (input == NULL) {
-        printf("No memory\n");
-        return 1;
-    }
-    printf("Please enter the card holder name [20-24]: ");
-    fgets(input, MAX_INPUT_GUARD, stdin);
-    
+    char input[25];
+    printf("Please enter the card holder name [20-24]:");
+    scanf("%[^\n]", input);
+
     uint8_t count=0, i=0;
     
     //Validate input alphabet
