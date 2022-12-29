@@ -6,6 +6,8 @@
 //
 
 #include "terminal.h"
+
+const char *terminalStates[] = {"TERMINAL_OK", "WRONG_DATE", "EXPIRED_CARD", "INVALID_CARD", "INVALID_AMOUNT", "EXCEED_MAX_AMOUNT", "INVALID_MAX_AMOUNT"};
 EN_terminalError_t getTransactionDate(ST_terminalData_t *termData){
     uint8_t input[11];
     printf("Please Enter the transaction date[e.g 25/06/2022]: ");

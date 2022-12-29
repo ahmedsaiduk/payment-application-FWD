@@ -154,8 +154,8 @@ void isCardExpriedTest(void){
         terminalData.transactionDate[i] = "30/12/2022"[i];
     for (int i = 0; i<5; i++)
         cardData.cardExpirationDate[i] = "12/24"[i];
-    printf("card expire date: 2024\n");
-    printf("terminal year: 2022\n");
+    printf("card expire date: 12/24\n");
+    printf("terminal year: 30/12/2022\n");
     terminalError = isCardExpired(&cardData, &terminalData);
     printf("Expected Result: TERMINAL_OK\n");
     printf("Actual Result: %s\n", terminalError ? "EXPIRED_CARD" : "TERMINAL_OK");
@@ -165,8 +165,8 @@ void isCardExpriedTest(void){
         terminalData.transactionDate[i] = "30/12/2022"[i];
     for (int i = 0; i< 6; i++)
         cardData.cardExpirationDate[i] = "12/21"[i];
-    printf("card expire date: 2021\n");
-    printf("terminal year: 2022\n");
+    printf("card expire date: 12/21\n");
+    printf("terminal year: 30/12/2022\n");
     terminalError = isCardExpired(&cardData, &terminalData);
     printf("Expected Result: EXPIRED_CARD\n");
     printf("Actual Result: %s\n", terminalError ? "EXPIRED_CARD" : "TERMINAL_OK");
@@ -197,6 +197,8 @@ void isBelowMaxAmountTest(void){
     
     printf("Test Case 1:\n");
     printf("when transaction > max transaction amount\n");
+    printf("transAmount: 100\n");
+    printf("maxTransAmount: 50\n");
     terminalData.transAmount = 100;
     terminalData.maxTransAmount = 50;
     terminalError = isBelowMaxAmount(&terminalData);
@@ -205,6 +207,8 @@ void isBelowMaxAmountTest(void){
     
     printf("Test Case 2:\n");
     printf("when transaction < max transaction amount\n");
+    printf("transAmount: 50\n");
+    printf("maxTransAmount: 100\n");
     terminalData.transAmount = 50;
     terminalData.maxTransAmount = 100;
     terminalError = isBelowMaxAmount(&terminalData);
@@ -318,6 +322,7 @@ void isValidAccountTest(void){
     for (int i = 0; i < 6; i++)
         cardData.cardExpirationDate[i] = "12/24"[i];
     printf("When An account exists\n");
+    printf("PAN number: 4024007104373104\n");
     serverError = isValidAccount(&cardData, &accountReference);
     printf("Expected Result: SERVER_OK\n");
     printf("Actual Result: %s\n", serverStates[serverError]);
@@ -330,6 +335,22 @@ void isValidAccountTest(void){
     for (int i = 0; i < 6; i++)
         cardData.cardExpirationDate[i] = "12/24"[i];
     printf("When An account does not exists\n");
+    printf("PAN number: 1111000011110000\n");
+
+    serverError = isValidAccount(&cardData, &accountReference);
+    printf("Expected Result: ACCOUNT_NOT_FOUND\n");
+    printf("Actual Result: %s\n", serverStates[serverError]);
+    
+    printf("Test Case 3:\n");
+    for(int i = 0; i < 25; i++)
+        cardData.cardHolderName[i] = "Ahmed Mohamed Abdelwahab"[i];
+    for(int i = 0; i < 17; i++)
+        cardData.primaryAccountNumber[i] ="$"[i];
+    for (int i = 0; i < 6; i++)
+        cardData.cardExpirationDate[i] = "12/24"[i];
+    printf("When An account is in wrong formate\n");
+    printf("PAN number: $\n");
+
     serverError = isValidAccount(&cardData, &accountReference);
     printf("Expected Result: ACCOUNT_NOT_FOUND\n");
     printf("Actual Result: %s\n", serverStates[serverError]);
@@ -343,7 +364,7 @@ void isBlockedAccountTest(void){
     accountReference.state = RUNNING;
     for (int i = 0; i < 6; i++)
         accountReference.primaryAccountNumber[i] = "4024007104373104"[i];
-    printf("When An account is running\n");
+    printf("When An account state is running\n");
     serverError = isBlockedAccount(&accountReference);
     printf("Expected Result: SERVER_OK\n");
     printf("Actual Result: %s\n", serverStates[serverError]);
@@ -363,6 +384,8 @@ void isAmountAvailableTest(void){
     printf("Tester Name: Ahmed Mohamed Abdelwahab Said\n");
     printf("Function Name: isAmountAvailableTest\n");
     printf("Test Case 1:\n");
+    printf("Account Balance: 3000\n");
+    printf("Trans Amount: 2000\n");
     accountReference.balance= 3000;
     accountReference.state = RUNNING;
     for (int i = 0; i < 6; i++)
@@ -374,6 +397,24 @@ void isAmountAvailableTest(void){
     printf("Actual Result: %s\n", serverStates[serverError]);
     
     printf("Test Case 2:\n");
+    printf("Account Balance: 3000\n");
+    printf("Trans Amount: 4000\n");
+    accountReference.balance= 3000;
+    accountReference.state = RUNNING;
+    for (int i = 0; i < 6; i++)
+        accountReference.primaryAccountNumber[i] = "4024007104373104"[i];
+    for(int i = 0; i < 11; i++)
+        terminalData.transactionDate[i] = "30/12/2022"[i];
+    terminalData.transAmount = 4000;
+    
+    printf("When An account Balance < transaction amount\n");
+    serverError = isAmountAvailable(&terminalData, &accountReference);
+    printf("Expected Result: LOW_BALANCE\n");
+    printf("Actual Result: %s\n", serverStates[serverError]);
+    
+    printf("Test Case 3:\n");
+    printf("Account Balance: 0\n");
+    printf("Trans Amount: 4000\n");
     accountReference.balance= 3000;
     accountReference.state = RUNNING;
     for (int i = 0; i < 6; i++)

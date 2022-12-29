@@ -39,6 +39,8 @@ void appStart(void){
 
     
     a_transState = recieveTransactionData(&a_transData);
-    a_transData.transState = cardHolderNameError == 0 && cardExpiryError == 0 && cardPanError == 0 && a_terminalDateError == 0 && a_terminalCardExpireError == 0 && a_terminalTransAmountError == 0 && a_terminalMaxAmountError == 0 && a_terminalBelowAmountError == 0 ? a_transState : INTERNAL_SERVER_ERROR ;
+    a_transData.transState = cardHolderNameError == 0 && cardExpiryError == 0 && cardPanError == 0  ? a_transState : INTERNAL_SERVER_ERROR ;
+    a_transData.transState = a_terminalTransAmountError == 0 && a_terminalMaxAmountError == 0 && a_terminalBelowAmountError == 0 ? a_transData.transState : DECLINED_INSUFFECIENT_FUND;
+    a_transData.transState =  a_terminalDateError == 0 && a_terminalCardExpireError == 0 ? a_transData.transState : FRAUD_CARD;
     saveTransaction(&a_transData);
 }
