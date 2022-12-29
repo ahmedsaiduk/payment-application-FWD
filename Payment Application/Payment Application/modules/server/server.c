@@ -30,7 +30,7 @@ ST_transaction_t trans_arr[255] = {0};
 
 
 EN_transState_t recieveTransactionData(ST_transaction_t *transData){
-    if(isValidAccount(&transData->cardHolderData, &accountRefrence) == ACCOUNT_NOT_FOUND){
+    if(isValidAccount(&transData->cardHolderData, &accountRefrence)){
         return FRAUD_CARD;
     }
 

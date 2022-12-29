@@ -12,7 +12,7 @@ EN_terminalError_t getTransactionDate(ST_terminalData_t *termData){
     uint8_t input[11];
     printf("Please Enter the transaction date[e.g 25/06/2022]: ");
     scanf("%s", input);
-    uint8_t count=0;
+    u_int count=0;
     
     // number validation
     while(input[count]!= '\0'){
@@ -21,14 +21,14 @@ EN_terminalError_t getTransactionDate(ST_terminalData_t *termData){
         }
         count++;
     }
-    if(0){
-        return WRONG_DATE;
-    }else{
+    if(count == 10){
         for(int i=0; i< count ; i++){
             termData->transactionDate[i] = input[i];
         }
-        return TERMINAL_OK;
+    }else{
+        return WRONG_DATE;
     }
+    return TERMINAL_OK;
 }
 
 EN_terminalError_t isCardExpired(ST_cardData_t *cardData, ST_terminalData_t *termData){
